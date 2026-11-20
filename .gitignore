@@ -21,3 +21,6 @@ __pycache__/
 
 # Jupyter
 .ipynb_checkpoints/
+
+/config/cohort_release_2026-11-13.csv
+
