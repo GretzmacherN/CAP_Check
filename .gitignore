@@ -18,6 +18,7 @@
 __pycache__/
 *.py[cod]
 *.egg-info/
+*-pycharm-support-libs/
 
 # Jupyter
 .ipynb_checkpoints/
