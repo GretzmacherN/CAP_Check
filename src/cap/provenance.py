@@ -133,9 +133,19 @@ def write_run_provenance(
 ) -> Path:
     """Write run metadata; explicit notebook/input arguments enrich new call sites."""
     root = paths.root.resolve()
-    git_commit = subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=root, text=True
-    ).strip()
+
+    git_result = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=root,
+        text=True,
+        capture_output=True,
+    )
+    if git_result.returncode:
+        raise RuntimeError(
+            f"git rev-parse HEAD failed; cwd={root}; "
+            f"stdout={git_result.stdout!r}; stderr={git_result.stderr!r}"
+        )
+    git_commit = git_result.stdout.strip()
     git_status = subprocess.check_output(
         ["git", "status", "--porcelain", "--untracked-files=all"],
         cwd=root,
