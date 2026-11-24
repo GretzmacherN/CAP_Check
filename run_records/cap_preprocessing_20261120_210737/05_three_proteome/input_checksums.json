@@ -1,0 +1,10 @@
+{
+  "references/proteomics/Lee_MOESM2_ESM.csv": "34a24baaeb53801b54e21beef17956cdd281b1ac510ac36daeb2d9b0641f2979",
+  "references/proteomics/Lehmann.csv": "8711de7db4d04ff8aa4269158b9a8f21d6bba247c3bd5d369c36f95f05846f9f",
+  "references/proteomics/lee_uniprot_gene_mapping.csv": "950e93c40d448751e559de81566eaf358126c0629204feb4be0337746bd1fd3a",
+  "references/proteomics/mmc2.xlsx": "655117bbe0809f12a29db241c2817b20518a1609602e207047fb604663f5702a",
+  "references/proteomics/cd-22-0200_table_s3_suppst3.xlsx": "151daf997b900315ba721805c09b4fe9df40944a59a53236fb5376ae41d44002",
+  "references/proteomics/cd-22-0200_table_s1_suppst1.csv": "04cfcd30270973d627445f0d5620138bfc472f2b49b90978e6cb5101c416ebf8",
+  "references/proteomics/h.all.v2026.1.Hs.symbols.gmt": "eecaf6dad908334ae885406ec72bdc0646d8917588ed7c219fac92fc5363f596",
+  "frozen_inputs.json": "af3904b63d24f3ec3352239a57218ee54c24e3f822569d4d45358081681525a0"
+}

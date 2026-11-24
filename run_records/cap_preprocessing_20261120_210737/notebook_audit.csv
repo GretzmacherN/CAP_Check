@@ -1,0 +1,10 @@
+stage,run_commit,git_dirty,recorded_matches_run_commit,recorded_matches_working_copy,dirty_entries
+00_cohort,74d4395d,False,True,False,
+01_preprocessing,9124e1a6,True,False,False, M notebooks/001_Papermill.ipynb
+02_cell_annotation,9124e1a6,True,True,False, M notebooks/001_Papermill.ipynb
+03a_epithelial_integration,c4bec59c,True,True,True, M notebooks/003a_Epithelial_Integration.ipynb
+03b_meta_programmes,c4bec59c,True,True,False, M notebooks/003a_Epithelial_Integration.ipynb |  M notebooks/003b_Meta_Programmes.ipynb
+03c_antigen_coexpression,38764bd8,False,True,True,
+03d_normal_tissue_protein,9124e1a6,True,True,False, M notebooks/001_Papermill.ipynb |  M notebooks/002_Celltype_ID.ipynb |  M notebooks/003a_Epithelial_Integration.ipynb |  M notebooks/003b_Meta_Programmes.ipynb |  M notebooks/003c_Antigen_Coexpression.ipynb
+04_programme_summary,8189a955,False,True,True,
+05_three_proteome,1012ae64,True,False,True, M notebooks/005_Three_Proteome.ipynb

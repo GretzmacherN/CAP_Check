@@ -1,0 +1,7 @@
+{
+  "03a_epithelial_integration/h5ad/epithelial_tumour_scvi.h5ad": "3f9990c7ef2772a98f1041518c9eeb185388d008aa92b48a0a66d7c40166dd4c",
+  "gene_policy.json": "c4213d53e2d3209312e7781c73ed20f660e0f256042956742693c0e0375926a6",
+  "cancer_meta_programme_signatures.xlsx": "a980e87edf6b216f591e29452f85d16bdc87b510c9b5989f524096e1862ac377",
+  "mammary_lineage_signatures.json": "e82ffe0c1bc402d77819934239129fe169bd11501856943bbf4815f4207094c2",
+  "frozen_inputs.json": "af3904b63d24f3ec3352239a57218ee54c24e3f822569d4d45358081681525a0"
+}
