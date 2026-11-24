@@ -37,6 +37,18 @@ Stages 01, 02, 03a, 03b, 03d and 05 were dirty at run time, mainly from saved no
 - **03b:** Read-only cells were added. One of them (index 3) ran late in the session, after the analysis cells, and the counts show a kernel restart.
 - **03d:** A diagnostic git cell was removed, and four cells were moved (gene_order, load_hpa, score_hpa, the hpa_summary rank line). In the saved session the moved cells ran in their current order, and each dependency runs before the cell that uses it. The recorded provenance hash, however, matches the committed order, not the order that produced the saved outputs. Whether the committed order gives identical results is not verified. Only a rerun from the commit can settle that.
 
+## Notebook defects in the frozen code
+
+These defects were found during review. They are documented, not corrected, because changing the notebooks would change the code this record describes.
+
+- The `001_Papermill` markdown says a full run deletes the existing `01_preprocessing` stage. The notebook contains no deletion code and refuses to write into an existing stage. The markdown is out of date.
+- `001_Papermill` imports `shutil`, which it doesn't use.
+- `000_Raw_Data_And_Cohort`, `001_Papermill` and `001_Preprocessing` contain diagnostic cells (environment and Git printouts, a provenance probe, and a stray `#None` comment in the parameters cell). They don't alter outputs.
+- `001_Preprocessing` checks for `notebooks/001_preprocessing.ipynb` in lowercase, but the file is `001_Preprocessing.ipynb`. This works on Windows but fails on a case-sensitive file system.
+- Stage 01 requires the git-ignored cohort release file. The repository alone cannot run stage 01.
+
+The submission repository's HEAD is the freeze commit plus one documentation-only commit that corrects the README and this note.
+
 ## Environment
 
 - ALRA was installed from GitHub HEAD and is not version-pinned. fastRPCA was skipped (optional, needs Rtools).
