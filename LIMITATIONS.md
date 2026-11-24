@@ -27,7 +27,7 @@ Stages 01, 02, 03a, 03b, 03d and 05 were dirty at run time, mainly from saved no
 ## Stage 01
 
 - The analysis notebook `notebooks/001_Preprocessing.ipynb` at commit 9124e1a is identical, cell for cell, to all 43 executed copies.
-- The launch wrapper `notebooks/001_Papermill.ipynb` is not recoverable. Its run-time version hashes to 25627e1f…, which matches neither the committed nor the working version. The wrapper's exposed settings (RUN_DEMO, DEMO_IDS, KERNEL_NAME) are not recorded per sample.
+- The launch wrapper `notebooks/001_Papermill.ipynb` is not recoverable. Its run-time version hashes to 25627e1f..., which matches neither the committed nor the working version. The wrapper's exposed settings (RUN_DEMO, DEMO_IDS, KERNEL_NAME) are not recorded per sample.
 - Coverage: the 43 executed samples equal the 43 cohort rows with include = True and files present.
 
 ## Post-run changes
@@ -45,9 +45,7 @@ These defects were found during review. They are documented, not corrected, beca
 - `001_Papermill` imports `shutil`, which it doesn't use.
 - `000_Raw_Data_And_Cohort`, `001_Papermill` and `001_Preprocessing` contain diagnostic cells (environment and Git printouts, a provenance probe, and a stray `#None` comment in the parameters cell). They don't alter outputs.
 - `001_Preprocessing` checks for `notebooks/001_preprocessing.ipynb` in lowercase, but the file is `001_Preprocessing.ipynb`. This works on Windows but fails on a case-sensitive file system.
-- Stage 01 requires the git-ignored cohort release file. The repository alone cannot run stage 01.
-
-The submission repository's HEAD is the freeze commit plus one documentation-only commit that corrects the README and this note.
+- Stage 01 reads the cohort release file in `config/`. That file was git-ignored in the working repository during the analysis. It is committed in this submission as a separate commit after the freeze, so the frozen analysis commit does not contain it.
 
 ## Environment
 
@@ -58,7 +56,8 @@ The submission repository's HEAD is the freeze commit plus one documentation-onl
 
 ## Data and outputs
 
-- The cohort file (config/cohort_release_2026-11-13.csv) is excluded from Git because it contains coded patient IDs, so the repository alone cannot regenerate stage 00.
+- The cohort release file was git-ignored in the working repository during the analysis. It contains coded patient IDs and is committed in this submission as a separate commit after the freeze. Stage 00 does not read it; stage 01 does.
 - Large outputs are in D:\CAP_Data. The output manifest in run_records/ was built before the notebook archive existed, so it covers the run folder only.
-- Stages 003a to 05 were rerun in this run after deleting earlier attempts. Those earlier attempts are not part of this record.
-- The notebooks as they were at the end of the run, with outputs and execution counts, are in D:\CAP_Data\runs\cap_preprocessing_20261120_210737\notebooks_with_outputs. Their SHA-256 checksums are in SHA256SUMS.csv, which is the reference for these files. Stages 03a, 03c, 04 and 05 match the recorded hash in the archive. The other archived notebooks reflect the state at archive time, after their documented post-run edits.
+- This record describes the final run. The stage records don't include timestamps or attempt history, so earlier attempts are not documented here.
+- The notebooks as they were at the end of the run, with outputs and execution counts, are in D:\CAP_Data\runs\cap_preprocessing_20261120_210737\notebooks_with_outputs. Their SHA-256 checksums are in SHA256SUMS.csv. The six notebooks for stages 003a to 005 (003a, 003b, 003c, 003d, 004 and 005) were checked against those checksums, and all match. The other archived notebooks reflect the state at archive time, after their documented post-run edits.
+- The submission repository's history is the frozen analysis commit, then one documentation commit correcting the README and this note, then one commit adding the cohort release file, then one documentation commit for the data source and release-file description.

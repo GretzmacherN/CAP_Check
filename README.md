@@ -12,6 +12,10 @@ This repository is the record of analysis run `cap_preprocessing_20261120_210737
 - [run_records/](run_records/) contains the per-stage provenance, input checksums, notebook audit, and the output manifest.
 - [VALIDATION.md](VALIDATION.md) describes what has and has not been validated.
 
+## Data source
+
+The data come from Pal et al., *EMBO J* 2021 (DOI 10.15252/embj.2020107333). Processed scRNA-seq and bulk RNA-seq data from that study are available as GEO series GSE161529 (http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE161529) and GSE161892 (http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE161892). Raw data are available on request, subject to approval by the WEHI Data Access Committee (dataaccess@wehi.edu.au), to ensure patient confidentiality. The 43 included samples are a subset of GSE161529.
+
 ## Repository layout and data
 
 The repository root is this directory, identified by `pyproject.toml`. Large inputs and run outputs are kept outside the repository under `CAP_DATA_ROOT`. The repository includes selected frozen reference files under `data/frozen/` and their checksum manifest under `data/manifests/`.
@@ -36,7 +40,11 @@ Expected external inputs include:
 
 The proteomics directory must contain `Lee_MOESM2_ESM.csv`, `Lehmann.csv`, `mmc2.xlsx`, `cd-22-0200_table_s3_suppst3.xlsx`, `cd-22-0200_table_s1_suppst1.csv`, `h.all.v2026.1.Hs.symbols.gmt`, and `lee_uniprot_gene_mapping.csv`.
 
-The cohort is defined by `000_Raw_Data_And_Cohort.ipynb`, which builds the sample sheet from the raw library files and the exclusion rules recorded in that notebook. Stage 01 additionally requires the frozen cohort release `config/cohort_release_2026-11-13.csv`. That file is not included in this repository because it is git-ignored, and it must be supplied separately. [State how it can be obtained.] The 01 driver checks that the release's included samples match the 00 sample sheet.
+## Cohort
+
+The cohort is defined by `000_Raw_Data_And_Cohort.ipynb`, which builds the sample sheet from the raw library files and the exclusion rules recorded in that notebook. Stage 00 does not read the cohort release file.
+
+Stage 01 reads the cohort release file `config/cohort_release_2026-11-13.csv` (SHA-256 `89216b94205669fa84d700b483e7e2f3b1cefd91da0ba1af0be09a4b088c755c`). The file lists the samples considered for this analysis, with sample-level metadata from the publication's supplementary tables (EV1 to EV4) and the inclusion decisions made for this analysis. The `include`, `exclusion_reason`, `include_before_patient_exclusion` and `files_present` columns are analysis-specific, not published data. The 01 driver checks that the release's included samples match the 00 sample sheet.
 
 ## Environment and setup
 
@@ -55,7 +63,7 @@ The checked-in `environment.yml` and `environment_R.json` record an Apple Silico
 
 ## Notebook workflow
 
-The core single-cell chain is `000` → `001` → `002` → `003a` → `003b` → `003c` → `004`. Notebook `001_Papermill.ipynb` is the driver: it runs `001_Preprocessing.ipynb` once per included sample, passing the sample ID as a parameter. Notebooks `003d_Normal_Tissue_Protein.ipynb` and `005_Three_Proteome.ipynb` are independent of that single-cell chain.
+The core single-cell chain is `000` -> `001` -> `002` -> `003a` -> `003b` -> `003c` -> `004`. Notebook `001_Papermill.ipynb` is the driver: it runs `001_Preprocessing.ipynb` once per included sample, passing the sample ID as a parameter. Notebooks `003d_Normal_Tissue_Protein.ipynb` and `005_Three_Proteome.ipynb` are independent of that single-cell chain.
 
 | Notebook | Stage | Purpose |
 |---|---|---|
@@ -82,7 +90,6 @@ $CAP_DATA_ROOT/runs/$CAP_RUN_ID/<stage>/
 
 The stage directories are `00_cohort`, `01_preprocessing`, `02_cell_annotation`, `03a_epithelial_integration`, `03b_meta_programmes`, `03c_antigen_coexpression`, `03d_normal_tissue_protein`, `04_programme_summary`, and `05_three_proteome`. Depending on the stage, outputs include H5AD objects, models, tables, figures, logs, and executed notebooks. Each stage directory also holds its `run_provenance.json` and `input_checksums.json`.
 
-**Known limitation,
 **Rerun behaviour:** the notebooks refuse to write into an existing stage directory. Use a new `CAP_RUN_ID` for any test or rerun. A failed run's partial stage must be removed by hand, after its contents have been checked.
 
 Figures should be saved through the shared helpers in [`src/cap/figures.py`](src/cap/figures.py). Path and run configuration is implemented in [`src/cap/paths.py`](src/cap/paths.py), and provenance helpers are in [`src/cap/provenance.py`](src/cap/provenance.py).
